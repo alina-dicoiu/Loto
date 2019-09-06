@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html lang="en">
+
+<head> 
+    <meta charset="utf-8">
+
+    <title>Title</title>
+
+    <link rel="stylesheet" href="./assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="./assets/libs/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+    <h1>Lotto</h1>
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Enter 6 different numbers! </label>
+            <input type="number1" class="form-control" id="guessInput1" aria-describedby="guessHelp">
+            <input type="number2" class="form-control" id="guessInput2" aria-describedby="guessHelp">
+            <input type="number3" class="form-control" id="guessInput3" aria-describedby="guessHelp">
+            <input type="number4" class="form-control" id="guessInput4" aria-describedby="guessHelp">
+            <input type="number5" class="form-control" id="guessInput5" aria-describedby="guessHelp">
+            <input type="number6" class="form-control" id="guessInput6" aria-describedby="guessHelp">
+            <small id="guessHelp" class="form-text text-muted">The 6 numbers must be between 1 and 49.</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-danger">Extract the numbers! </button>
+    </form>
+
+    <div id="messageDiv">
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

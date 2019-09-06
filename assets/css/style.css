@@ -1,0 +1,11 @@
+h1{
+    margin-left: 10%;
+}
+form, #messageDiv{
+    width: 90%;
+    margin-left: 10%;
+}
+#messageDiv{
+    margin-top: 20px;
+}
+
