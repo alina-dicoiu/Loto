@@ -2,7 +2,7 @@
 
 <html lang="en">
 
-<head> 
+<head>
     <meta charset="utf-8">
 
     <title>Title</title>
@@ -13,28 +13,34 @@
 </head>
 
 <body>
-    <h1>Lotto</h1>
-    <form>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Enter 6 different numbers! </label>
-            <input type="number" class="form-control" id="guessInput1" aria-describedby="guessHelp">
-            <input type="number" class="form-control" id="guessInput2" aria-describedby="guessHelp">
-            <input type="number" class="form-control" id="guessInput3" aria-describedby="guessHelp">
-            <input type="number" class="form-control" id="guessInput4" aria-describedby="guessHelp">
-            <input type="number" class="form-control" id="guessInput5" aria-describedby="guessHelp">
-            <input type="number" class="form-control" id="guessInput6" aria-describedby="guessHelp">
-            <small id="guessHelp" class="form-text text-muted">The 6 numbers must be between 1 and 49.</small>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Lotto</h1>
+            <p class="lead">This is a lotto game.</p>
         </div>
+    </div>
 
-        <button type="submit" id="submitbutton" class="btn btn-primary">Submit</button>
-        <button type="submit" id="extractbutton" class="btn btn-danger">Extract the numbers! </button>
-    </form>
+    <div class="card">
+        <div class="card-header">
+            Loto 6/49
+        </div>
+        <div class="card-body">
+            <div id="lotoTicket"></div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" id="submitbutton" class="btn btn-primary">Submit</button>
+            <button type="button" id="clearbutton" class="btn btn-primary">Clear</button>
+        </div>
+    </div>
+
+    <button type="submit" id="extractbutton" class="btn btn-danger">Extract the numbers! </button>
+
 
     <div id="messageDiv">
 
     </div>
-    <div id="randomNumbers"> 
-        
+    <div id="randomNumbers">
+
     </div>
 
     <script src="script.js"></script>
