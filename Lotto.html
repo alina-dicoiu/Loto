@@ -15,32 +15,52 @@
 <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Lotto</h1>
+            <h1 class="display-6">Lotto</h1>
             <p class="lead">This is a lotto game.</p>
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header">
-            Loto 6/49
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div id="messageDiv">
+
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <div id="lotoTicket"></div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="lotoTypeSelect">Pick Loto type:</label>
+                    <select class="form-control" id="lotoTypeSelect">
+                        <option value="3">2/9</option>
+                        <option value="4">3/16</option>
+                        <option value="5">4/25</option>
+                        <option value="7">6/49</option>
+                        <option value="8">7/64</option>
+                    </select>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Loto 6/49
+                    </div>
+                    <div class="card-body">
+                        <div id="lotoTicket"></div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" id="submitbutton" class="btn btn-primary">Submit</button>
+                        <button type="button" id="clearbutton" class="btn btn-primary">Clear</button>
+                        <button type="button" id="extractbutton" class="btn btn-danger">Extract the numbers! </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div id="randomNumbers">
+
+                </div>
+            </div>
         </div>
-        <div class="card-footer">
-            <button type="submit" id="submitbutton" class="btn btn-primary">Submit</button>
-            <button type="button" id="clearbutton" class="btn btn-primary">Clear</button>
-        </div>
-    </div>
-
-    <button type="submit" id="extractbutton" class="btn btn-danger">Extract the numbers! </button>
-
-
-    <div id="messageDiv">
-
-    </div>
-    <div id="randomNumbers">
-
     </div>
 
     <script src="script.js"></script>

@@ -1,17 +1,44 @@
 $("document").ready(function () {
-    createGrid(7);
     var randomNumbers = [];
     var userNumbers = [];
+    var gridSize=7;
+    var toGuess=6;
+    createGrid(gridSize);
+    $("#lotoTypeSelect").val(gridSize);
+    changeTitle();
 
     $("#extractbutton").on("click", function (evt1) {
-        var ct = 0;
         evt1.preventDefault();
+        let selectedCells = $("#lotoTicket span.selected");
+        if (selectedCells.length < toGuess) {
+            let errorMessage = `
+            <div class="alert alert-danger" role="alert">
+            You must select ${toGuess} numbers!!
+            </div>`;
+            $("#messageDiv").html(errorMessage);
+        }
+        else {
+            extractNumbers();
+        }
+    });
+
+    $("#lotoTypeSelect").on("change", function () {
+        let selectedOption = $("#lotoTypeSelect").find(":selected").attr("value");
+        gridSize=Number(selectedOption);
+        toGuess=Number(selectedOption)-1;
+        createGrid(gridSize);
+        changeTitle();
+    })
+
+    async function extractNumbers() {
+        var ct = 0;
+
         $("#messageDiv").html("");
         $("#randomNumbers").html("");
-        for (let i = 0; i < 6; i++) {
-            var number = Math.floor(Math.random() * 49) + 1;
+        for (let i = 0; i < toGuess; i++) {
+            var number = Math.floor(Math.random() * gridSize*gridSize) + 1;
             while (randomNumbers.includes(number)) {
-                number = Math.floor(Math.random() * 49) + 1;
+                number = Math.floor(Math.random() * gridSize*gridSize) + 1;
             }
             randomNumbers.push(number);
             let rdNumbers = `
@@ -20,6 +47,8 @@ $("document").ready(function () {
             if (userNumbers.includes(randomNumbers[i])) {
                 ct++;
             }
+
+            await sleep(1);
         }
         if (ct === 0) {
             let failureMessage = `
@@ -28,7 +57,7 @@ $("document").ready(function () {
             </div>`;
             $("#messageDiv").html(failureMessage);
         }
-        else if (ct > 0 && ct < 6) {
+        else if (ct > 0 && ct < toGuess) {
             let winMessage = `
             <div class="alert alert-warning" role="alert">
             You guessed ${ct} numbers!!
@@ -42,29 +71,29 @@ $("document").ready(function () {
             </div>`;
             $("#messageDiv").html(successMessage);
         }
-    });
+    }
 
     $("#submitbutton").on("click", function (evt) {
         evt.preventDefault();
         let selectedCells = $("#lotoTicket span.selected");
-        if (selectedCells.length < 6) {
+        if (selectedCells.length < toGuess) {
             let errorMessage = `
             <div class="alert alert-danger" role="alert">
-            You must select 6 numbers!!
+            You must select ${toGuess} numbers!!
             </div>`;
             $("#messageDiv").html(errorMessage)
         }
         else {
             userNumbers = [];
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < toGuess; i++) {
                 userNumbers.push(Number(selectedCells[i].innerHTML));
             }
-            $("#extractbutton").css("visibility", "visible");
         }
 
     })
 
     function createGrid(x) {
+        $("#lotoTicket").html("");
         for (var i = 0; i < x; i++) {
             $("#lotoTicket").append(`<div id='row-${i}'></div>`);
             for (var j = 0; j < x; j++) {
@@ -76,7 +105,7 @@ $("document").ready(function () {
 
         $("#lotoTicket span").on("click", function () {
             let selectedCells = $("#lotoTicket span.selected");
-            if (selectedCells.length < 6) {
+            if (selectedCells.length < toGuess) {
                 this.classList.add("selected");
             }
         })
@@ -84,8 +113,17 @@ $("document").ready(function () {
 
     $("#clearbutton").on("click", function () {
         $("#lotoTicket span.selected").removeClass("selected");
-        $("#extractbutton").css("visibility", "hidden");
         $("#messageDiv").html("");
         $("#randomNumbers").html("");
-    })
+    });
+
+    function sleep(s) {
+        return new Promise(function (resolve) {
+            return setTimeout(resolve, s * 1000);
+        });
+    }
+    function changeTitle(){
+        let mainGrid= gridSize*gridSize;
+        $(".card-header").html(`Loto ${toGuess}/${mainGrid}`)
+    }
 })
