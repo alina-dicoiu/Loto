@@ -1,14 +1,15 @@
 $("document").ready(function () {
     var randomNumbers = [];
     var userNumbers = [];
-    var gridSize=7;
-    var toGuess=6;
+    var gridSize = 7;
+    var toGuess = 6;
     createGrid(gridSize);
     $("#lotoTypeSelect").val(gridSize);
     changeTitle();
 
     $("#extractbutton").on("click", function (evt1) {
         evt1.preventDefault();
+        readInput();
         let selectedCells = $("#lotoTicket span.selected");
         if (selectedCells.length < toGuess) {
             let errorMessage = `
@@ -24,8 +25,8 @@ $("document").ready(function () {
 
     $("#lotoTypeSelect").on("change", function () {
         let selectedOption = $("#lotoTypeSelect").find(":selected").attr("value");
-        gridSize=Number(selectedOption);
-        toGuess=Number(selectedOption)-1;
+        gridSize = Number(selectedOption);
+        toGuess = Number(selectedOption) - 1;
         createGrid(gridSize);
         changeTitle();
     })
@@ -36,16 +37,20 @@ $("document").ready(function () {
         $("#messageDiv").html("");
         $("#randomNumbers").html("");
         for (let i = 0; i < toGuess; i++) {
-            var number = Math.floor(Math.random() * gridSize*gridSize) + 1;
+            var number = Math.floor(Math.random() * gridSize * gridSize) + 1;
             while (randomNumbers.includes(number)) {
-                number = Math.floor(Math.random() * gridSize*gridSize) + 1;
+                number = Math.floor(Math.random() * gridSize * gridSize) + 1;
             }
             randomNumbers.push(number);
             let rdNumbers = `
-            <span>${number}</span>`;
+            <span id=${number}>${number}</span>`;
             $("#randomNumbers").append(rdNumbers);
             if (userNumbers.includes(randomNumbers[i])) {
                 ct++;
+                $("#" + number).addClass("green");
+            }
+            else {
+                $("#" + number).addClass("red");
             }
 
             await sleep(1);
@@ -73,8 +78,7 @@ $("document").ready(function () {
         }
     }
 
-    $("#submitbutton").on("click", function (evt) {
-        evt.preventDefault();
+    function readInput() {
         let selectedCells = $("#lotoTicket span.selected");
         if (selectedCells.length < toGuess) {
             let errorMessage = `
@@ -90,7 +94,7 @@ $("document").ready(function () {
             }
         }
 
-    })
+    }
 
     function createGrid(x) {
         $("#lotoTicket").html("");
@@ -122,8 +126,8 @@ $("document").ready(function () {
             return setTimeout(resolve, s * 1000);
         });
     }
-    function changeTitle(){
-        let mainGrid= gridSize*gridSize;
+    function changeTitle() {
+        let mainGrid = gridSize * gridSize;
         $(".card-header").html(`Loto ${toGuess}/${mainGrid}`)
     }
 })
